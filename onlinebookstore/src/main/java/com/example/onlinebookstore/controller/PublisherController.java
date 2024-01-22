@@ -16,13 +16,13 @@ public class PublisherController {
     @Autowired
     private PublisherService publisherService;
 
-    @GetMapping
+    @GetMapping("/getallpublisher")
     public ResponseEntity<List<Publisher>> getAllPublishers() {
         List<Publisher> publishers = publisherService.getAllPublishers();
         return new ResponseEntity<>(publishers, HttpStatus.OK);
     }
 
-    @GetMapping("/{publisherId}")
+    @GetMapping("getpublisherbyid/{publisherId}")
     public ResponseEntity<Publisher> getPublisherById(@PathVariable String publisherId) {
         Publisher publisher = publisherService.getPublisherById(publisherId);
         if (publisher != null) {
@@ -52,7 +52,7 @@ public class PublisherController {
         }
     }
 
-    @DeleteMapping("/{publisherId}")
+    @DeleteMapping("/delete/{publisherId}")
     public ResponseEntity<String> deletePublisher(@PathVariable String publisherId) {
         String result = publisherService.deletePublisher(publisherId);
         if (result.equals("Deleted Successfully")) {

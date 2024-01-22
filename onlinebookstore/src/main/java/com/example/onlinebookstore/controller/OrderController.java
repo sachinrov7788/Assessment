@@ -55,7 +55,7 @@ public class OrderController {
         }
     }
 
-    @DeleteMapping("/{orderId}")
+    @DeleteMapping("/delete/{orderId}")
     public ResponseEntity<String> deleteOrder(@PathVariable String orderId) {
         String result = orderService.deleteOrder(orderId);
 

@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     private String username;
     private String password;
-    private Role role;
+    private String role;
     private String storeName;
 }

@@ -16,13 +16,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping
+    @GetMapping("/getallbooks")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("getbooksbyid/{bookId}")
+    @GetMapping("/getbooksbyid/{bookId}")
     public ResponseEntity<Book> getBookById(@PathVariable String bookId) {
         Book book = bookService.getBookById(bookId);
         if (book != null) {
@@ -52,7 +52,7 @@ public class BookController {
         }
     }
 
-    @DeleteMapping("/{bookId}")
+    @DeleteMapping("/delete/{bookId}")
     public ResponseEntity<String> deleteBook(@PathVariable String bookId) {
         String result = bookService.deleteBook(bookId);
         if (result.equals("Deleted Successfully")) {

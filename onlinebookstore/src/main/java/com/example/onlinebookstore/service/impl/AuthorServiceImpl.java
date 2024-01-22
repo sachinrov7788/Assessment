@@ -16,9 +16,6 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @Override
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();

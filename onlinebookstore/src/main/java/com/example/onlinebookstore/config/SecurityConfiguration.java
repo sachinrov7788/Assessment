@@ -28,25 +28,40 @@ public class SecurityConfiguration {
                 http.csrf(csrf -> csrf
                                 .disable())
                                 .authorizeHttpRequests(requests -> requests
-                                                .requestMatchers("/api/auth/**")
-                                                .permitAll() 
-                                                .requestMatchers("/api/authors/**",
-                                                "/api/books/**",
-                                                "/api/inventories/**",
-                                                "/api/orders/**",
-                                                "/api/order-items/**",
-                                                "/api/publishers/**"
-                                                )
-                                .hasAuthority("ADMIN")
-                                                .requestMatchers("/api/authors/getauthorbyid/**",
-                                                "/api/books/**",
-                                                "/api/orders/**",
-                                                "/api/order-items/**",
-                                                "/api/publishers/**"
-                                                )
-                                .hasAuthority("VENDOR")
+                                                .requestMatchers("/api/auth/**").permitAll() 
+                                                .requestMatchers("/api/authors/delete/**",
+                                                "/api/books/delete/**",
+                                                "/api/inventories/delete/**",
+                                                "/api/orders/delete/**",
+                                                "/api/order-items/delete/**",
+                                                "/api/publishers/delete/**",
+                                                "/api/users/all",
+                                                "/api/users/**",
+                                                "/api/users/delete/**",
+                                                "/api/users/by-role/**")
+                                .hasAnyAuthority("ADMIN")
+                                // .requestMatchers("/api/authors/**",
+                                //                 "/api/books/**",
+                                //                 "/api/orders/**",
+                                //                 "/api/order-items/getbyorderitemid/**",
+                                //                 "/api/order-items/by-book/**",
+                                //                 "/api/publishers/getallpublisher",
+                                //                 "/api/publishers/getpublisherbyid"
+                                //                 )
+                                // .hasAnyAuthority("ADMIN","VENDOR")
+                                //                 .requestMatchers("/api/authors/getauthorbyid/**",
+                                //                 "/api/authors/getallauthors",
+                                //                 "/api/books/getallbooks",
+                                //                 "/api/books/getbooksbyid/**",
+                                //                 "/api/orders/**",
+                                //                 "/api/order-items/getbyorderitemid/**",
+                                //                 "/api/order-items/**",
+                                //                 "/api/publishers/getallpublisher",
+                                //                 "/api/publishers/getpublisherbyid"
+                                //                 )
+                                // .hasAnyAuthority("ADMIN","CUSTOMER")
 
-                                                .requestMatchers("/api/authors/**").hasAuthority("ADMIN")
+                                                // .requestMatchers("/api/authors/**").hasAuthority("ADMIN")
                                                 .anyRequest()
                                                 .authenticated())
                                 .sessionManagement(management -> management

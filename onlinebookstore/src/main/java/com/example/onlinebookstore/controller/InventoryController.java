@@ -58,7 +58,7 @@ public class InventoryController {
         }
     }
 
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/delete/{username}")
     public ResponseEntity<String> deleteInventory(@PathVariable String username) {
         String result = inventoryService.deleteInventory(username);
         if (result.equals("Deleted Successfully")) {

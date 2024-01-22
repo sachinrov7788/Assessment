@@ -23,12 +23,12 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping
+    @GetMapping("/getllauthors")
     public List<Author> getAllAuthors() {
         return authorService.getAllAuthors();
     }
     
-    @GetMapping("getauthorbyid/{authorId}")
+    @GetMapping("/getauthorbyid/{authorId}")
     public ResponseEntity<Author> getAuthorById(@PathVariable String authorId) {
         Author author = authorService.getAuthorById(authorId);
         if(author!=null){

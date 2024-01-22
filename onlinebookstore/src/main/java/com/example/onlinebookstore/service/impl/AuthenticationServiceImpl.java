@@ -67,6 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                 return new ResponseEntity<>(AuthenticationResponse.builder()
                                 .token(jwtToken)
+                                .user(savedUser)
                                 .build(), HttpStatus.OK);
         }
 
@@ -87,5 +88,5 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                                 .token(jwtToken)
                                 .build(), HttpStatus.OK);
         }
-
+        
 }

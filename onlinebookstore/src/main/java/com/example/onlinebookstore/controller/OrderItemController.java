@@ -21,7 +21,7 @@ public class OrderItemController {
         return orderItemService.getAllOrderItems();
     }
 
-    @GetMapping("/{orderItemId}")
+    @GetMapping("getbyorderitemid/{orderItemId}")
     public ResponseEntity<OrderItem> getOrderItemById(@PathVariable String orderItemId) {
         OrderItem orderItem = orderItemService.getOrderItemById(orderItemId);
 
@@ -55,7 +55,7 @@ public class OrderItemController {
         }
     }
 
-    @DeleteMapping("/{orderItemId}")
+    @DeleteMapping("/delete/{orderItemId}")
     public ResponseEntity<String> deleteOrderItem(@PathVariable String orderItemId) {
         String result = orderItemService.deleteOrderItem(orderItemId);
 
