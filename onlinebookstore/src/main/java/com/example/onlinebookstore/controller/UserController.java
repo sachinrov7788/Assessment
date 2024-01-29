@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/getallusers")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -59,16 +59,6 @@ public class UserController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/role/{username}")
-    public ResponseEntity<String> getUserDetailsBasedOnRole(@PathVariable String username) {
-        String userDetails = userService.getUserDetailsBasedOnRole(username);
-        if (userDetails != null) {
-            return new ResponseEntity<>(userDetails, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

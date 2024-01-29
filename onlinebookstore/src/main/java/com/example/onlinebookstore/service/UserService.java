@@ -15,6 +15,4 @@ public interface UserService {
     User updateUser(String userName, User updatedUser);
 
     String deleteUser(String username);
-
-    String getUserDetailsBasedOnRole(String username);
 }

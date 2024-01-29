@@ -27,7 +27,6 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
         @RequestBody RegisterRequest request){
-            System.out.println("Password : "+request.getPassword());
             return service.register(request);
     }
 

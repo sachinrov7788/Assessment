@@ -35,33 +35,17 @@ public class SecurityConfiguration {
                                                 "/api/orders/delete/**",
                                                 "/api/order-items/delete/**",
                                                 "/api/publishers/delete/**",
-                                                "/api/users/all",
-                                                "/api/users/**",
+                                                "/api/users/getallusers",
                                                 "/api/users/delete/**",
-                                                "/api/users/by-role/**")
-                                .hasAnyAuthority("ADMIN")
-                                // .requestMatchers("/api/authors/**",
-                                //                 "/api/books/**",
-                                //                 "/api/orders/**",
-                                //                 "/api/order-items/getbyorderitemid/**",
-                                //                 "/api/order-items/by-book/**",
-                                //                 "/api/publishers/getallpublisher",
-                                //                 "/api/publishers/getpublisherbyid"
-                                //                 )
-                                // .hasAnyAuthority("ADMIN","VENDOR")
-                                //                 .requestMatchers("/api/authors/getauthorbyid/**",
-                                //                 "/api/authors/getallauthors",
-                                //                 "/api/books/getallbooks",
-                                //                 "/api/books/getbooksbyid/**",
-                                //                 "/api/orders/**",
-                                //                 "/api/order-items/getbyorderitemid/**",
-                                //                 "/api/order-items/**",
-                                //                 "/api/publishers/getallpublisher",
-                                //                 "/api/publishers/getpublisherbyid"
-                                //                 )
-                                // .hasAnyAuthority("ADMIN","CUSTOMER")
+                                                "/api/authors/delete/**").hasAuthority("ADMIN")
 
-                                                // .requestMatchers("/api/authors/**").hasAuthority("ADMIN")
+                                                .requestMatchers("api/authors/**",
+                                                "api/book/**",
+                                                "api/publisher/**").hasAuthority("VENDOR")
+
+                                                .requestMatchers("api/authors/**",
+                                                "api/orders/orderby**",
+                                                "api/orders/delete/**").hasAuthority("CUSTOMER")
                                                 .anyRequest()
                                                 .authenticated())
                                 .sessionManagement(management -> management

@@ -30,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 
+        //Dependencies injection
         private final UserRepository userRepository;
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;

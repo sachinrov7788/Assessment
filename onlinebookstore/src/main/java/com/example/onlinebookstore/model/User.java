@@ -30,7 +30,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        System.out.println(role.name());
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
