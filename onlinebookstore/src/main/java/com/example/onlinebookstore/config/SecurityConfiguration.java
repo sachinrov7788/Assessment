@@ -37,15 +37,15 @@ public class SecurityConfiguration {
                                                 "/api/publishers/delete/**",
                                                 "/api/users/getallusers",
                                                 "/api/users/delete/**",
-                                                "/api/authors/delete/**").hasAuthority("ADMIN")
+                                                "/api/authors/delete/**").hasAnyAuthority("ADMIN")
 
                                                 .requestMatchers("api/authors/**",
                                                 "api/book/**",
-                                                "api/publisher/**").hasAuthority("VENDOR")
+                                                "api/publishers/**").hasAnyAuthority("VENDOR")
 
                                                 .requestMatchers("api/authors/**",
                                                 "api/orders/orderby**",
-                                                "api/orders/delete/**").hasAuthority("CUSTOMER")
+                                                "api/orders/delete/**").hasAnyAuthority("CUSTOMER")
                                                 .anyRequest()
                                                 .authenticated())
                                 .sessionManagement(management -> management

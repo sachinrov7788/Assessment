@@ -1,9 +1,7 @@
 package com.example.onlinebookstore.service.impl;
 
 import com.example.onlinebookstore.model.Author;
-import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.repository.AuthorRepository;
-import com.example.onlinebookstore.repository.BookRepository;
 import com.example.onlinebookstore.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

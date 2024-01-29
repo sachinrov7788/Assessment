@@ -1,16 +1,11 @@
 package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.model.Author;
-import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.service.AuthorService;
-import com.example.onlinebookstore.service.BookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +18,7 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("/getllauthors")
+    @GetMapping("/getallauthors")
     public List<Author> getAllAuthors() {
         return authorService.getAllAuthors();
     }

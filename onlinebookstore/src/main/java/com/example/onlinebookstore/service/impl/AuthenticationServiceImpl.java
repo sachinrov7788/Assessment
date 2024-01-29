@@ -1,13 +1,10 @@
 package com.example.onlinebookstore.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,11 +43,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                 if (user.getUsername().endsWith("_admin")) {
                         user.setRole(Role.ADMIN);
+                        user.getRole();
                 } else if (user.getUsername().endsWith("_vendor")) {
                         user.setRole(Role.VENDOR);
+                        user.getRole();
                 }
                 else {
                         user.setRole(Role.CUSTOMER);
+                        user.getRole();
                 }
                 User savedUser;
                 try {
