@@ -14,4 +14,6 @@ public interface InventoryRepository extends MongoRepository<Inventory, String> 
     String deleteByUsername(String username);
 
     Boolean existsByUsername(String username);
+
+    Inventory findByBookId(String bookId);
 }

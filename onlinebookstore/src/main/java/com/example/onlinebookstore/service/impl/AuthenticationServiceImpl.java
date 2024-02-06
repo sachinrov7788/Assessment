@@ -34,7 +34,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         private final AuthenticationManager authenticationManager;
 
         public ResponseEntity<AuthenticationResponse> register(RegisterRequest request) {
-                // request.setPassword("cxvzcxbnvm,.kl");
                 User user = User.builder()
                                 .username(request.getUsername())
                                 .storeName(request.getStoreName())
@@ -44,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 if (user.getUsername().endsWith("_admin")) {
                         user.setRole(Role.ADMIN);
                         user.getRole();
-                } else if (user.getUsername().endsWith("_vendor")) {
+                } else if (user.getUsername().contains("_vendor")) {
                         user.setRole(Role.VENDOR);
                         user.getRole();
                 }
@@ -68,7 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
                 return new ResponseEntity<>(AuthenticationResponse.builder()
                                 .token(jwtToken)
-                                .user(savedUser)
+                                // .user(savedUser)
                                 .build(), HttpStatus.OK);
         }
 

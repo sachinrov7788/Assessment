@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.model.Order;
+import com.example.onlinebookstore.model.Orderdto;
 import com.example.onlinebookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order newOrder) {
+    public ResponseEntity<Order> createOrder(@RequestBody Orderdto newOrder) {
         Order createdOrder = orderService.createOrder(newOrder);
 
         if (createdOrder != null) {

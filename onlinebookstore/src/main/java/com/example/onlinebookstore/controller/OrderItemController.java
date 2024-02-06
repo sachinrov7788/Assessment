@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.model.OrderItem;
+import com.example.onlinebookstore.service.BookService;
 import com.example.onlinebookstore.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,9 @@ public class OrderItemController {
     @Autowired
     private OrderItemService orderItemService;
 
-    @GetMapping
+    @Autowired
+    private BookService bookService;
+    @GetMapping("getallorderitems")
     public List<OrderItem> getAllOrderItems() {
         return orderItemService.getAllOrderItems();
     }
@@ -34,6 +37,10 @@ public class OrderItemController {
 
     @PostMapping
     public ResponseEntity<OrderItem> createOrderItem(@RequestBody OrderItem newOrderItem) {
+        int stock = bookService.getBookById(newOrderItem.getBookId()).getQuantity();
+        if(newOrderItem.getQuantity()<stock){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } 
         OrderItem createdOrderItem = orderItemService.createOrderItem(newOrderItem);
 
         if (createdOrderItem != null) {

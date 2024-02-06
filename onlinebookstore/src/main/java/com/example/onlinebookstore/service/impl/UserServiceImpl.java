@@ -22,65 +22,81 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByName(String userName) {
-        return userRepository.findByUsername(userName).get();
+        try {
+            return userRepository.findByUsername(userName).orElse(null);
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while fetching user by name: " + e.getMessage());
+        }
     }
 
     @Override
     public User createUser(User newUser) {
-        User existingUser = userRepository.findByUsername(newUser.getUsername()).get();
+        try {
+            User existingUser = userRepository.findByUsername(newUser.getUsername()).orElse(null);
 
-        if (existingUser == null) {
-            userRepository.save(newUser);
-            return newUser;
-        } else {
-            return null;
+            if (existingUser == null) {
+                userRepository.save(newUser);
+                return newUser;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while creating the user: " + e.getMessage());
         }
     }
 
     @Override
     public User updateUser(String userName, User updatedUser) {
-        User existingUser = userRepository.findByUsername(userName).get();
+        try {
+            User existingUser = userRepository.findByUsername(userName).orElse(null);
 
-        if (existingUser != null) {
-            updatedUser.setUsername(existingUser.getUsername());
-            userRepository.save(updatedUser);
-            return updatedUser;
-        } else {
-            return null;
+            if (existingUser != null) {
+                updatedUser.setUsername(existingUser.getUsername());
+                userRepository.save(updatedUser);
+                return updatedUser;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while updating the user: " + e.getMessage());
         }
     }
 
     @Override
     public String deleteUser(String username) {
-        Boolean existingUser = userRepository.existsByUsername(username);
+        try {
+            Boolean existingUser = userRepository.existsByUsername(username);
 
-        if (existingUser) {
-            userRepository.deleteByUsername(username);
-            return "Deleted Successfully";
-        } else {
-            return "UserId not found, provide a valid userId";
+            if (existingUser) {
+                userRepository.deleteByUsername(username);
+                return "Deleted Successfully";
+            } else {
+                return "Username not found, provide a valid username";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting the user: " + e.getMessage());
         }
     }
 
-    // Additional methods for role-based access...
     public String getUserDetailsBasedOnRole(String username) {
-        User user = userRepository.findByUsername(username).get();
+        try {
+            User user = userRepository.findByUsername(username).orElse(null);
 
-        if (user != null) {
-            Role role = user.getRole();
-            if ("customer".equals(role)) {
-                // Return customer details excluding store name
-                return "Customer Details: " + user.getUsername() + ", Role: " + user.getRole();
-            } else if ("admin".equals(role)) {
-                // Return all details
-                return "Admin Details: " + user.getUsername() + ", Role: " + user.getRole() +
-                        ", Store Name: " + user.getStoreName();
-            } else if ("vendor".equals(role)) {
-                // Return details with store name for vendor
-                return "Vendor Details: " + user.getUsername() + ", Role: " + user.getRole() +
-                        ", Store Name: " + user.getStoreName();
+            if (user != null) {
+                Role role = user.getRole();
+                if ("customer".equals(role)) {
+                    return "Customer Details: " + user.getUsername() + ", Role: " + user.getRole();
+                } else if ("admin".equals(role)) {
+                    return "Admin Details: " + user.getUsername() + ", Role: " + user.getRole() +
+                            ", Store Name: " + user.getStoreName();
+                } else if ("vendor".equals(role)) {
+                    return "Vendor Details: " + user.getUsername() + ", Role: " + user.getRole() +
+                            ", Store Name: " + user.getStoreName();
+                }
             }
+            return "User not found.";
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while fetching user details based on role: " + e.getMessage());
         }
-        return "User not found.";
     }
 }

@@ -40,12 +40,8 @@ public class SecurityConfiguration {
                                                 "/api/authors/delete/**").hasAnyAuthority("ADMIN")
 
                                                 .requestMatchers("api/authors/**",
-                                                "api/book/**",
-                                                "api/publishers/**").hasAnyAuthority("VENDOR")
-
-                                                .requestMatchers("api/authors/**",
-                                                "api/orders/orderby**",
-                                                "api/orders/delete/**").hasAnyAuthority("CUSTOMER")
+                                                "api/books/**",
+                                                "api/publishers/**").hasAnyAuthority("VENDOR","ADMIN")
                                                 .anyRequest()
                                                 .authenticated())
                                 .sessionManagement(management -> management

@@ -26,38 +26,50 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book newBook) {
-        Book existingBook = bookRepository.findByBookId(newBook.getBookId());
+        try {
+            Book existingBook = bookRepository.findByBookId(newBook.getBookId());
 
-        if (existingBook == null) {
-            bookRepository.save(newBook);
-            return newBook;
-        } else {
-            return null;
+            if (existingBook == null) {
+                bookRepository.save(newBook);
+                return newBook;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while creating the book: " + e.getMessage());
         }
     }
 
     @Override
     public Book updateBook(String bookId, Book updatedBook) {
-        Book existingBook = bookRepository.findByBookId(bookId);
+        try {
+            Book existingBook = bookRepository.findByBookId(bookId);
 
-        if (existingBook != null) {
-            updatedBook.setBookId(existingBook.getBookId());
-            bookRepository.save(updatedBook);
-            return updatedBook;
-        } else {
-            return null;
+            if (existingBook != null) {
+                updatedBook.setBookId(existingBook.getBookId());
+                bookRepository.save(updatedBook);
+                return updatedBook;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while updating the book: " + e.getMessage());
         }
     }
 
     @Override
     public String deleteBook(String bookId) {
-        Boolean existingBook = bookRepository.existsByBookId(bookId);
+        try {
+            Boolean existingBook = bookRepository.existsByBookId(bookId);
 
-        if (existingBook) {
-            bookRepository.deleteByBookId(bookId);
-            return "Deleted Successfully";
-        } else {
-            return "BookId not found, provide a valid bookId";
+            if (existingBook) {
+                bookRepository.deleteByBookId(bookId);
+                return "Deleted Successfully";
+            } else {
+                return "BookId not found, provide a valid bookId";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting the book: " + e.getMessage());
         }
     }
 

@@ -35,38 +35,50 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory createInventory(Inventory newInventory) {
-        Inventory existingInventory = inventoryRepository.findByUsername(newInventory.getUsername());
+        try {
+            Inventory existingInventory = inventoryRepository.findByUsername(newInventory.getUsername());
 
-        if (existingInventory == null) {
-            inventoryRepository.save(newInventory);
-            return newInventory;
-        } else {
-            return null;
+            if (existingInventory == null) {
+                inventoryRepository.save(newInventory);
+                return newInventory;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while creating inventory: " + e.getMessage());
         }
     }
 
     @Override
     public Inventory updateInventory(String username, Inventory updatedInventory) {
-        Inventory existingInventory = inventoryRepository.findByUsername(username);
+        try {
+            Inventory existingInventory = inventoryRepository.findByUsername(username);
 
-        if (existingInventory != null) {
-            updatedInventory.setUsername(existingInventory.getUsername());
-            inventoryRepository.save(updatedInventory);
-            return updatedInventory;
-        } else {
-            return null;
+            if (existingInventory != null) {
+                updatedInventory.setUsername(existingInventory.getUsername());
+                inventoryRepository.save(updatedInventory);
+                return updatedInventory;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while updating inventory: " + e.getMessage());
         }
     }
 
     @Override
     public String deleteInventory(String username) {
-        Boolean existingInventory = inventoryRepository.existsByUsername(username);
+        try {
+            Boolean existingInventory = inventoryRepository.existsByUsername(username);
 
-        if (existingInventory) {
-            inventoryRepository.deleteByUsername(username);
-            return "Deleted Successfully";
-        } else {
-            return "Username not found, provide a valid username";
+            if (existingInventory) {
+                inventoryRepository.deleteByUsername(username);
+                return "Deleted Successfully";
+            } else {
+                return "Username not found, provide a valid username";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting inventory: " + e.getMessage());
         }
     }
 }

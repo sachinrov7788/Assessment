@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -19,6 +20,6 @@ public class Order {
     private String id;
     private String orderId;
     private String userId;
-    private String orderItemId;
+    private ArrayList<String> orderItemId;
     private Date orderDate;
 }

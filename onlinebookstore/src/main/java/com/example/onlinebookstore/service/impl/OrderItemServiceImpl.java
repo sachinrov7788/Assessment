@@ -26,38 +26,50 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItem createOrderItem(OrderItem newOrderItem) {
-        OrderItem existingOrderItem = orderItemRepository.findByOrderItemId(newOrderItem.getOrderItemId());
+        try {
+            OrderItem existingOrderItem = orderItemRepository.findByOrderItemId(newOrderItem.getOrderItemId());
 
-        if (existingOrderItem == null) {
-            orderItemRepository.save(newOrderItem);
-            return newOrderItem;
-        } else {
-            return null;
+            if (existingOrderItem == null) {
+                orderItemRepository.save(newOrderItem);
+                return newOrderItem;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while creating order item: " + e.getMessage());
         }
     }
 
     @Override
     public OrderItem updateOrderItem(String orderItemId, OrderItem updatedOrderItem) {
-        OrderItem existingOrderItem = orderItemRepository.findByOrderItemId(orderItemId);
+        try {
+            OrderItem existingOrderItem = orderItemRepository.findByOrderItemId(orderItemId);
 
-        if (existingOrderItem != null) {
-            updatedOrderItem.setOrderItemId(existingOrderItem.getOrderItemId());
-            orderItemRepository.save(updatedOrderItem);
-            return updatedOrderItem;
-        } else {
-            return null;
+            if (existingOrderItem != null) {
+                updatedOrderItem.setOrderItemId(existingOrderItem.getOrderItemId());
+                orderItemRepository.save(updatedOrderItem);
+                return updatedOrderItem;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while updating order item: " + e.getMessage());
         }
     }
 
     @Override
     public String deleteOrderItem(String orderItemId) {
-        Boolean existingOrderItem = orderItemRepository.existsByOrderItemId(orderItemId);
+        try {
+            Boolean existingOrderItem = orderItemRepository.existsByOrderItemId(orderItemId);
 
-        if (existingOrderItem) {
-            orderItemRepository.deleteByOrderItemId(orderItemId);
-            return "Deleted Successfully";
-        } else {
-            return "OrderItemId not found, provide a valid orderItemId";
+            if (existingOrderItem) {
+                orderItemRepository.deleteByOrderItemId(orderItemId);
+                return "Deleted Successfully";
+            } else {
+                return "OrderItemId not found, provide a valid orderItemId";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting order item: " + e.getMessage());
         }
     }
 

@@ -26,38 +26,50 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public Publisher createPublisher(Publisher newPublisher) {
-        Publisher existingPublisher = publisherRepository.findByPublisherId(newPublisher.getPublisherId());
+        try {
+            Publisher existingPublisher = publisherRepository.findByPublisherId(newPublisher.getPublisherId());
 
-        if (existingPublisher == null) {
-            publisherRepository.save(newPublisher);
-            return newPublisher;
-        } else {
-            return null;
+            if (existingPublisher == null) {
+                publisherRepository.save(newPublisher);
+                return newPublisher;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while creating the publisher: " + e.getMessage());
         }
     }
 
     @Override
     public Publisher updatePublisher(String publisherId, Publisher updatedPublisher) {
-        Publisher existingPublisher = publisherRepository.findByPublisherId(publisherId);
+        try {
+            Publisher existingPublisher = publisherRepository.findByPublisherId(publisherId);
 
-        if (existingPublisher != null) {
-            updatedPublisher.setPublisherId(existingPublisher.getPublisherId());
-            publisherRepository.save(updatedPublisher);
-            return updatedPublisher;
-        } else {
-            return null;
+            if (existingPublisher != null) {
+                updatedPublisher.setPublisherId(existingPublisher.getPublisherId());
+                publisherRepository.save(updatedPublisher);
+                return updatedPublisher;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while updating the publisher: " + e.getMessage());
         }
     }
 
     @Override
     public String deletePublisher(String publisherId) {
-        Boolean existingPublisher = publisherRepository.existsByPublisherId(publisherId);
+        try {
+            Boolean existingPublisher = publisherRepository.existsByPublisherId(publisherId);
 
-        if (existingPublisher) {
-            publisherRepository.deleteByPublisherId(publisherId);
-            return "Deleted Successfully";
-        } else {
-            return "PublisherId not found, provide a valid publisherId";
+            if (existingPublisher) {
+                publisherRepository.deleteByPublisherId(publisherId);
+                return "Deleted Successfully";
+            } else {
+                return "PublisherId not found, provide a valid publisherId";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting the publisher: " + e.getMessage());
         }
     }
 }
